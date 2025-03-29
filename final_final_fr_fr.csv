@@ -270,7 +270,7 @@ id,"Q1: From a scale 1 to 5, how complex is it to make this food? (Where 1 is th
 602657,2,10,"Week day lunch,Weekend lunch",10.0,the avengers,milk,Friends,A little (mild),Shawarma
 616449,3,4,"Week day lunch,Weekend lunch,At a party",10.0,the avengers,soda,"Friends,Strangers",A moderate amount (medium),Shawarma
 501893,3,5,"Week day lunch,Week day dinner",12.5,shawarma legend,juice,Strangers,A moderate amount (medium),Shawarma
-507448,3,potato,"Week day lunch,Weekend lunch",10.0,the avengers,coke,Strangers,A moderate amount (medium),Shawarma
+507448,3,none,"Week day lunch,Weekend lunch",10.0,the avengers,coke,Strangers,A moderate amount (medium),Shawarma
 606556,3,3,"Week day lunch,At a party",4.0,dangal,coke,Friends,none,Shawarma
 724326,1,7,"Week day lunch,Weekend lunch",12.0,star wars,water,Friends,none,Shawarma
 616945,3,5,"Week day lunch,Weekend lunch",8.0,ratatouille,sprite,Friends,A moderate amount (medium),Shawarma
@@ -876,7 +876,7 @@ id,"Q1: From a scale 1 to 5, how complex is it to make this food? (Where 1 is th
 630098,3,3,"Week day lunch,At a party",5.0,teenage mutant ninja turtles,coke,Friends,A little (mild),Pizza
 629959,3,4,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",5.0,ratatouille,water,"Parents,Siblings,Friends",none,Pizza
 633097,3,8,"Week day lunch,Weekend dinner,At a party",5.0,american pie,coke,"Friends,Teachers",none,Pizza
-605290,3,#NAME?,"Week day lunch,Week day dinner,Weekend dinner,At a party",5.0,mean girls,sprindrift,Friends,none,Pizza
+605290,3,none,"Week day lunch,Week day dinner,Weekend dinner,At a party",5.0,mean girls,sprindrift,Friends,none,Pizza
 629869,3,5,At a party,2.0,friday,coke,Friends,A little (mild),Pizza
 632868,2,3,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",20.0,home alone,none,"Parents,Siblings,Friends",A little (mild),Pizza
 209691,2,5,"Week day lunch,Weekend lunch,At a party",10.0,spiderman,none,"Friends,Teachers",none,Pizza
