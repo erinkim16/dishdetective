@@ -17,13 +17,8 @@ import sys
 import csv
 import random
 from data_processing import preprocess_data
-
-# numpy and pandas are also permitted
 import numpy as np
 import pandas as pd
-
-# from sklearn.preprocessing import LabelEncoder
-# from sklearn.model_selection import train_test_split
 from collections import Counter
 import math
 
@@ -222,48 +217,41 @@ class RandomForest:
 
 
 
-# Load the exported data
-df_new = pd.read_csv('model_data.csv')
 
-# Separate features and target
-X_new = df_new.drop(columns=['Label']).values
-y_new = df_new['Label'].values
+try:
+    # Load the exported data
+    df_new = pd.read_csv('model_data.csv')
 
-# Initialize RandomForest with correct parameters
-rf_model = RandomForest(
-    n_trees=100, 
-    criterion='entropy', 
-    max_depth=30, 
-    min_samples_split=10, 
-    min_samples_leaf=2,
-    n_features='sqrt'
-)
+    # Separate features and target
+    X_new = df_new.drop(columns=['Label']).values
+    y_new = df_new['Label'].values
 
-# Fit the model (train once)
-rf_model.fit(X_new, y_new)
+    # Initialize RandomForest with correct parameters
+    rf_model = RandomForest(
+        n_trees=100, 
+        criterion='entropy', 
+        max_depth=30, 
+        min_samples_split=10, 
+        min_samples_leaf=2,
+        n_features='sqrt'
+    )
 
+    # Fit the model (train once)
+    rf_model.fit(X_new, y_new)
 
-def preprocess_data(df):
-    print('help me')
-
+except Exception as e:
+    print(f"Error loading training data: {e}")
+    rf_model = None
 
 
 def predict(x):
-    """
-    Helper function to make prediction for a given input x.
-    This code is here for demonstration purposes only.
-    """
-    # randomly choose between the three choices: 'Pizza', 'Shawarma', 'Sushi'.
-    # NOTE: make sure to be *very* careful of the spelling/capitalization of the food items!
-
-
-    vals = ['Pizza', 'Shawarma', 'Sushi']
-    matcher = {vals[0]: 0, vals[1]: 1, vals[2]: 2}
-    y = vals[matcher[rf_model.predict([x])[0]]]
-
-
-    # return the prediction
-    return y
+    """Predict single sample"""
+    if rf_model is None:
+        return random.choice(['Pizza', 'Shawarma', 'Sushi'])
+    
+    # Convert numeric prediction to label
+    pred_num = rf_model.predict(np.array([x]))[0]
+    return ['Pizza', 'Shawarma', 'Sushi'][pred_num]
 
 
 def predict_all(filename):
@@ -273,18 +261,105 @@ def predict_all(filename):
     # read the file containing the test data
     # you do not need to use the "csv" package like we are using
     # (e.g. you may use numpy, pandas, etc)
-
-    # df = pd.read_csv('/content/drive/MyDrive/311/final_final_fr_fr.csv')
     df = pd.read_csv(filename)
+
+    # cleaning that crappy data
     data = preprocess_data(df)
+    df = data
+
+    # getting data ready for prediction
+    def vectorized_one_hot(answers, options, attribute_to_index):
+        num_samples = len(answers)
+        num_attributes = len(options)
+        one_hot_matrix = np.zeros((num_samples, num_attributes))
+
+        for i, ans_list in enumerate(answers):
+            for ans in ans_list:
+                ans = ans.strip()
+                if ans in attribute_to_index:
+                    one_hot_matrix[i, attribute_to_index[ans]] = 1
+        return one_hot_matrix
+
+    # Define question columns
+    questions = [q1, q2, q3, q4, q5, q6, q7, q8] = [
+        "Q1: From a scale 1 to 5, how complex is it to make this food? (Where 1 is the most simple, and 5 is the most complex)",
+        "Q2: How many ingredients would you expect this food item to contain?",
+        "Q3: In what setting would you expect this food to be served? Please check all that apply",
+        "Q4: How much would you expect to pay for one serving of this food item?",
+        "Q5: What movie do you think of when thinking of this food item?",
+        "Q6: What drink would you pair with this food item?",
+        "Q7: When you think about this food item, who does it remind you of?",
+        "Q8: How much hot sauce would you add to this food item?"
+    ]
+    t = 'Label'
+
+    df[q1] = pd.to_numeric(df[q1], errors='coerce')
+    df[q2] = pd.to_numeric(df[q2], errors='coerce')
+    df[q4] = pd.to_numeric(df[q4], errors='coerce')
+
+    # Create missing indicators before imputation
+    for col in [q1, q2, q4]:
+        df[f'{col}_missing'] = df[col].isna().astype(int)
+
+    # 1. Fix pandas warnings
+    df = df.fillna({
+        q1: df[q1].median(),
+        q2: df[q2].median(),
+        q4: df[q4].median()
+    })
+
+    # Define options for categorical columns
+    q3_options = ['none','Week day lunch','Week day dinner','Weekend lunch',
+                'Weekend dinner','At a party', 'Late night snack']
+    q7_options = ['Parents','Siblings','Friends', 'Teachers', 'Strangers', 'none']
+    q8_options = ['I will have some of this food item with my hot sauce',
+                'A lot (hot)', 'A moderate amount (medium)', 'A little (mild)', 'none']
+
+    # Create attribute to index mappings
+    q3_attribute_to_index = {attr: idx for idx, attr in enumerate(q3_options)}
+    q7_attribute_to_index = {attr: idx for idx, attr in enumerate(q7_options)}
+    q8_attribute_to_index = {attr: idx for idx, attr in enumerate(q8_options)}
+
+    # Manual feature engineering approach
+    numerical_features = df[[q1, q2, q4]].values
+
+    # Convert DataFrame columns to lists before splitting
+    q3_answers = [ans.split(",") for ans in df[q3].astype(str).tolist()]
+    q7_answers = [ans.split(",") for ans in df[q7].astype(str).tolist()]
+    q8_answers = [ans.split(",") for ans in df[q8].astype(str).tolist()]
+
+    q3_hot = vectorized_one_hot(q3_answers, q3_options, q3_attribute_to_index)
+    q7_hot = vectorized_one_hot(q7_answers, q7_options, q7_attribute_to_index)
+    q8_hot = vectorized_one_hot(q8_answers, q8_options, q8_attribute_to_index)
+
+    # Frequency encoding
+    q5_encoded = df[q5].map(df[q5].value_counts(normalize=True)).values.reshape(-1, 1)
+    q6_encoded = df[q6].map(df[q6].value_counts(normalize=True)).values.reshape(-1, 1)
+
+    # 2. Ensure numerical features
+    X = np.hstack([
+        numerical_features.astype(float),
+        q3_hot.astype(float),
+        q7_hot.astype(float),
+        q8_hot.astype(float),
+        q5_encoded.astype(float),
+        q6_encoded.astype(float)
+    ])
+
+
+    # Make predictions
+    if rf_model is None:
+        # Fallback to random predictions if model failed to load
+        return [random.choice(['Pizza', 'Shawarma', 'Sushi']) for _ in range(df.shape[0])]
+    else:
+        # Get all predictions at once
+        pred_nums = rf_model.predict(X)
+        return [['Pizza', 'Shawarma', 'Sushi'][num] for num in pred_nums]
     
-
-    predictions = []
-    for test_example in data:
-        # obtain a prediction for this test example
-        pred = predict(test_example)
-        predictions.append(pred)
-
-    return predictions
+    # predictions = []
+    # for index, row in data.iterrows():
+    #     # obtain a prediction for this test example
+    #     pred = predict(data)
+    #     predictions.append(pred)
 
 
