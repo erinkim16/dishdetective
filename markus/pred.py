@@ -228,10 +228,10 @@ try:
 
     # Initialize RandomForest with correct parameters
     rf_model = RandomForest(
-        n_trees=100, 
-        criterion='entropy', 
-        max_depth=30, 
-        min_samples_split=10, 
+        n_trees=100,
+        criterion='entropy',
+        max_depth=30,
+        min_samples_split=10,
         min_samples_leaf=2,
         n_features='sqrt'
     )
@@ -248,7 +248,7 @@ def predict(x):
     """Predict single sample"""
     if rf_model is None:
         return random.choice(['Pizza', 'Shawarma', 'Sushi'])
-    
+
     # Convert numeric prediction to label
     pred_num = rf_model.predict(np.array([x]))[0]
     return ['Pizza', 'Shawarma', 'Sushi'][pred_num]
@@ -354,9 +354,25 @@ def predict_all(filename):
     else:
         # Get all predictions at once
         pred_nums = rf_model.predict(X)
-        return [['Pizza', 'Shawarma', 'Sushi'][num] for num in pred_nums]
-    
-    # predictions = []
+        predictions =  [['Pizza', 'Shawarma', 'Sushi'][num] for num in pred_nums]
+
+        # print(predictions)
+
+
+        # # If you have actual labels to compare with
+        # if 'Label' in df.columns:
+        #     actuals = df['Label'].values
+        #     correct = sum(1 for p, a in zip(predictions, actuals) if p == a)
+        #     accuracy = correct / len(actuals) * 100
+        #
+        #     print("\nPrediction Report:")
+        #     print(f"Accuracy: {accuracy:.2f}%")
+        #     print("\nDetailed Comparison:")
+        #     for i, (pred, actual) in enumerate(zip(predictions, actuals), 1):
+        #         status = "✓" if pred == actual else "✗"
+        #         print(f"Row {i}: Predicted {pred} | Actual {actual} {status}")
+
+        return predictions
     # for index, row in data.iterrows():
     #     # obtain a prediction for this test example
     #     pred = predict(data)
