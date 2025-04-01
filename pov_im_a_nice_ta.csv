@@ -1,0 +1,61 @@
+id,"Q1: From a scale 1 to 5, how complex is it to make this food? (Where 1 is the most simple, and 5 is the most complex)",Q2: How many ingredients would you expect this food item to contain?,Q3: In what setting would you expect this food to be served? Please check all that apply,Q4: How much would you expect to pay for one serving of this food item?,Q5: What movie do you think of when thinking of this food item?,Q6: What drink would you pair with this food item?,"Q7: When you think about this food item, who does it remind you of?",Q8: How much hot sauce would you add to this food item?,Label
+502799,2,8,"Weekend dinner,At a party",$10,Back to the future,Ice tea,"Parents,Siblings,Friends",None,Pizza
+605278,2,"minimum 4 (cheese, tomato sauce, flour, water)","Weekend dinner,At a party,Late night snack",$4,Godfather,Coke,"Friends,Teachers,Strangers",A little (mild),Pizza
+388888,3,8,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",5,Mystic Pizza,Coke,Friends,A little (mild),Pizza
+519548,3,~5-6,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",$6,Spider man 2,Coke,"Parents,Siblings,Friends,Teachers",A little (mild),Pizza
+405521,4,3,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",4,futurama,coke,Friends,A moderate amount (medium),Pizza
+607410,3,8,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",About $13.,Iron Man I,Orange Fanta,"Siblings,Teachers",None,Pizza
+715795,4,8,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",$13,Life of Pi,Hot chocolate,"Parents,Friends,Teachers",None,Pizza
+625326,3,5,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",$3,Avengers,Soda,"Siblings,Friends,Teachers",A little (mild),Pizza
+627220,3,3 to 7,"Week day lunch,Weekend dinner,At a party,Late night snack",6 to 7 dollars,Despicable Me,Mountain Dew,Friends,A little (mild),Pizza
+505318,2,3 or more,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",$5,Cloudy with a chance of meatballs,Soda,"Siblings,Friends",A little (mild),Pizza
+612478,5,8,"Week day lunch,Weekend lunch",$9.00,The Avengers,Root beer,"Siblings,Friends",None,Shawarma
+501416,4,5,Week day lunch,$10,1001 Nights,Water,Strangers,A little (mild),Shawarma
+629710,3,8,"Week day lunch,Late night snack",14,The Avengers,Soda,Friends,A lot (hot),Shawarma
+502610,2,"Flatbreads, spice, chicken, beef, sauce, oil, lettuce","Week day lunch,Week day dinner,Weekend lunch,Weekend dinner",I guess around $9,The Avengers,Soft drinks,Friends,A moderate amount (medium),Shawarma
+603476,4,8,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner",10 CAD,The Avengers,Coke,Strangers,A little (mild),Shawarma
+600957,3,8,"Week day lunch,Week day dinner,Weekend lunch",10,Fast Furious,Nestea,Parents,A moderate amount (medium),Shawarma
+713423,2,10,"Week day lunch,Weekend lunch",10,The Avengers,milk tea,Friends,A little (mild),Shawarma
+722431,3,Four,"Week day lunch,Weekend lunch,At a party",$10,The Avengers,Soda,"Friends,Strangers",A moderate amount (medium),Shawarma
+633234,3,"5: Flour, meat, pickles, fries and sour cream","Week day lunch,Week day dinner",CAD10-15,"not sure...maybe Turkish movies? But it will remind me of a game called Shawarma Legend, which is a simulation game and highly recommended!",orange juice,Strangers,A moderate amount (medium),Shawarma
+148179,3,potato,"Week day lunch,Weekend lunch",10,The Avengers,Coke,Strangers,A moderate amount (medium),Shawarma
+629010,4,4,"Week day dinner,Weekend lunch,Weekend dinner,At a party",20,The Karate Kid,Wine,"Parents,Friends,Strangers",A little (mild),Sushi
+605254,3,4,"Week day lunch,Weekend lunch,Weekend dinner,At a party",15,None,Water,"Parents,Siblings,Friends",A moderate amount (medium),Sushi
+628990,4,Maybe 3 to 4 ingredients. ,"Weekend lunch,Weekend dinner",Somewhere in the late 20's or early 30's. Maybe 28 bucks. ,Some Japanese movie or some action movie. ,Maybe some cocktail like Gin Martini. ,Parents,None,Sushi
+625295,4,06-Apr,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",$10-$50,Jiro Dreams of Sushi,Green tea or water,"Parents,Siblings,Friends",None,Sushi
+603415,4,5,"Week day dinner,Weekend dinner,At a party",20,Wolf of Wallstreet,Coke Zero,Friends,A moderate amount (medium),Sushi
+635533,2,4,Week day lunch,9,Godzilla,no drink,Strangers,None,Sushi
+630389,5,06-May,"Week day dinner,Weekend lunch,Weekend dinner",$8-12,Johnny English,Sake,"Siblings,Friends",None,Sushi
+714901,3,3,Weekend dinner,12 dollars,Fast and Furious: Tokyo Drift,Tea,Parents,None,Sushi
+629792,5,4,"Week day dinner,Weekend lunch,Weekend dinner,At a party",11,Karate Kid,Water,"Friends,Strangers",A little (mild),Sushi
+629025,2,3,"Week day dinner,Weekend dinner,At a party",$16,Scary Movie 4 (2006),Water,"Parents,Siblings,Friends",None,Sushi
+601122,3,5,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",2,none,fanta,"Friends,Teachers",A little (mild),Pizza
+602871,3,4,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",Assuming one serving means one slice: $3,Harry Potter,Coca Cola,"Siblings,Friends",None,Pizza
+520828,3,6,"Week day lunch,Week day dinner,Weekend lunch,At a party",$3,"eat, pray, love",Coca-Cola Zero,"Siblings,Friends,Teachers",A little (mild),Pizza
+514199,3,10,"Week day dinner,Weekend dinner,At a party,Late night snack",$7,spiderman,canada dry,"Parents,Siblings",None,Pizza
+389697,2,"at least 4， cheese,olive, papper, Ham piece",At a party,lower than 15$,no movie that I can think,obviously cola,Friends,A lot (hot),Pizza
+714430,3,"flour, water, yeast, salt, oil, tomato sauce, cheese, pepperoni, vegetables.","At a party,Late night snack",6 to 9 dollars,ratatouille.,Sprite,Friends,None,Pizza
+612567,3,anywhere from 3 to as much as you like,"Week day lunch,Weekend lunch,At a party,Late night snack",$2,Toy Story,Pop with ice,"Parents,Siblings,Friends",None,Pizza
+744468,3,10,Weekend lunch,10,shrek,gatorade,"Parents,Siblings",A lot (hot),Pizza
+502722,2,4,At a party,16.99,Captain America,Coke,Teachers,A lot (hot),Pizza
+519681,4,7,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",12,Home Alone,Soda,Friends,None,Pizza
+601217,2,9,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner",10,The Avengers,water,"Friends,Strangers",I will have some of this food item with my hot sauce,Shawarma
+629221,3,Seven.,"Week day lunch,Weekend lunch",12 CAD.,Deadpool & Wolverine.,Coca Cola.,Friends,A little (mild),Shawarma
+634705,4,4-6 ingredients,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner",$13,Avengers,coke,Friends,A moderate amount (medium),Shawarma
+630070,3,5+,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",$13,The Dictator,Water.,Friends,None,Shawarma
+630006,4,9,"Week day lunch,Weekend lunch",11,Drishyam,coffee,Strangers,None,Shawarma
+629072,2,15-Oct,"Week day lunch,Late night snack",$10,The Avengers,Coke,Friends,A lot (hot),Shawarma
+630044,3,8,"Week day lunch,Week day dinner,Weekend lunch",$7,Mission Impossible,Orange Juice,Siblings,A lot (hot),Shawarma
+626026,5,It can vary depending on what is needed inside the shawarma. From as little as 2-3 to much more like 6. ,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner",8$-12$,The Avengers. Action movies.,"Sprite or any soft drinks as such. Coke, Pepsi, etc.","Parents,Siblings",A lot (hot),Shawarma
+520303,4,10+,"Week day lunch,Late night snack",$12,Us,Coca cola,"Parents,Siblings",A moderate amount (medium),Shawarma
+630972,4,7,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner",8,The Avengers,Pepsi,Friends,A little (mild),Shawarma
+522477,5,4,"Week day dinner,Weekend dinner",20,tokyo drift,pepsi,"Parents,Friends",None,Sushi
+523461,4,5,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner",25,Billions - TV Show,Sake,"Parents,Siblings,Friends",None,Sushi
+312640,2,4,"Week day lunch,Week day dinner,Weekend dinner",10,Rush Hour,Water,Parents,None,Sushi
+854745,4,It could contain anywhere between 2 to 8 ingredients,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner",One serving of sushi would be $16,Madagascar 2,straight soy sauce by the gallon,"Parents,Friends",A moderate amount (medium),Sushi
+711854,4,5,"Week day dinner,Weekend dinner",around 17 dollars,Weathering with You,tea,"Parents,Siblings",None,Sushi
+739254,3,05-Apr,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",$10,The Fast and the Furious: Tokyo Drift,Water,Friends,A little (mild),Sushi
+621555,3,03-Feb,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",10-25 Canadian dollars,None,Hot Tea,"Parents,Friends",None,Sushi
+602482,5,7,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party,Late night snack",20,Godzilla,Bubble Tea,"Parents,Siblings,Friends,Teachers,Strangers",A little (mild),Sushi
+630416,3,3 to 8,"Week day lunch,Week day dinner,Weekend lunch,Weekend dinner,At a party",$5 to $25,Nothing,tea,"Parents,Siblings,Friends,Strangers",None,Sushi
+505458,3,5,"Week day lunch,Weekend lunch,At a party",15,No movie,Water,"Friends,Teachers",A lot (hot),Sushi
