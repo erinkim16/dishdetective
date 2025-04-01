@@ -1,7 +1,7 @@
 import pandas as pd
 import re
 import numpy as np
-import statistics 
+import statistics
 from ast import literal_eval
 
 
@@ -49,10 +49,10 @@ def text2int(textnum, numwords={}):
 def connected_components(csgraph, directed):
     """
     Finds connected components in a graph using Depth-First Search (DFS).
-    
+
     Args:
         adj_matrix: 2D NumPy array or Pandas DataFrame representing adjacency matrix
-    
+
     Returns:
         n_components: int (number of connected components)
         labels: 1D array of component labels
@@ -61,12 +61,12 @@ def connected_components(csgraph, directed):
 
     if isinstance(adj_matrix, pd.DataFrame):
         adj_matrix = adj_matrix.values
-        
+
     n = len(adj_matrix)
     visited = np.zeros(n, dtype=bool)
     labels = np.zeros(n, dtype=int)
     current_label = 0
-    
+
     def dfs(node):
         stack = [node]
         while stack:
@@ -79,12 +79,12 @@ def connected_components(csgraph, directed):
                 for neighbor in neighbors:
                     if not visited[neighbor]:
                         stack.append(neighbor)
-    
+
     for i in range(n):
         if not visited[i]:
             dfs(i)
             current_label += 1
-            
+
     return current_label, labels
 
 def clean_text(text):
@@ -185,7 +185,7 @@ def extract_best_match(query, choices, threshold=85):
         if score > best_score:
             best_match, best_score = choice, score
     return (best_match, best_score) if best_score >= threshold else (None, 0)
-    
+
 
 ###########################
 
@@ -314,12 +314,11 @@ def outlier_rest(text):
   else:
     return text
 
-
 def replace_non_numeric(value):
     try:
         float(value)  # Attempt to convert to a number
         return value  # If successful, keep the value
-    except ValueError:
+    except (ValueError, TypeError):  # Catch both value and type errors
         return 'none'  # If conversion fails, replace with 'none'
 
 def q2_processing(df):
@@ -525,6 +524,9 @@ def q4_processing(df):
     # Applying all functions to the Q4 column
     # Important note! ORDER MATTERS! Specific order to identify cases, and not *mis*-identify cases with only very small margin of error
 
+    df['Q4: How much would you expect to pay for one serving of this food item?'] = df['Q4: How much would you expect to pay for one serving of this food item?'].fillna('none')
+
+
     # Apply the date function to the Q4 column
     df['Q4: How much would you expect to pay for one serving of this food item?'] = df['Q4: How much would you expect to pay for one serving of this food item?'].apply(convert_date_format)
 
@@ -582,10 +584,10 @@ def q6_processing(df):
     def connected_components(csgraph, directed):
         """
         Finds connected components in a graph using Depth-First Search (DFS).
-        
+
         Args:
             adj_matrix: 2D NumPy array or Pandas DataFrame representing adjacency matrix
-        
+
         Returns:
             n_components: int (number of connected components)
             labels: 1D array of component labels
@@ -594,12 +596,12 @@ def q6_processing(df):
 
         if isinstance(adj_matrix, pd.DataFrame):
             adj_matrix = adj_matrix.values
-            
+
         n = len(adj_matrix)
         visited = np.zeros(n, dtype=bool)
         labels = np.zeros(n, dtype=int)
         current_label = 0
-        
+
         def dfs(node):
             stack = [node]
             while stack:
@@ -612,14 +614,14 @@ def q6_processing(df):
                     for neighbor in neighbors:
                         if not visited[neighbor]:
                             stack.append(neighbor)
-        
+
         for i in range(n):
             if not visited[i]:
                 dfs(i)
                 current_label += 1
-                
+
         return current_label, labels
-        
+
 
 
     def clean_text(text):
@@ -728,11 +730,11 @@ def q6_processing(df):
     def load_training_clusters(cluster_path):
         """Load clusters with empty indices lists"""
         train_cluster_df = pd.read_csv(cluster_path)
-        
+
         # Initialize empty indices if column missing or empty
         if 'Indices' not in train_cluster_df.columns:
             train_cluster_df['Indices'] = [[] for _ in range(len(train_cluster_df))]
-        
+
         train_clusters = {}
         for _, row in train_cluster_df.iterrows():
             train_clusters[row['Cluster Id']] = {
@@ -747,7 +749,7 @@ def q6_processing(df):
         # Preprocess test data
         test_responses = test_entries[['drinks', 'original_index']].copy()
         test_responses['drinks'] = test_responses['drinks'].astype(str).apply(clean_text)
-        
+
         # Convert train clusters to comparable format
         train_cluster_words = {
             cluster_id: {
@@ -757,15 +759,15 @@ def q6_processing(df):
             }
             for cluster_id, data in train_clusters.items()
         }
-        
+
         # Process each test response
         for _, row in test_responses.iterrows():
             test_word = row['drinks']
             test_index = row['original_index']
-            
+
             best_match = None
             best_score = 0
-            
+
             # Compare against all existing clusters
             for cluster_id, cluster_data in train_cluster_words.items():
                 # Compare against all words in this cluster
@@ -773,14 +775,14 @@ def q6_processing(df):
                     # Use both similarity measures
                     jaro_score = jaro_winkler_similarity(test_word, cluster_word)
                     fuzzy_score = simple_fuzzy_match(test_word, cluster_word)/100  # Normalize to 0-1
-                    
+
                     # Combined score (you can adjust weights)
                     combined_score = 0.7*jaro_score + 0.3*fuzzy_score
-                    
+
                     if combined_score > best_score:
                         best_score = combined_score
                         best_match = cluster_id
-            
+
             # Apply threshold (same as training)
             if best_score >= 0.85:  # Your combined threshold
                 train_cluster_words[best_match]['count'] += 1
@@ -793,7 +795,7 @@ def q6_processing(df):
                     'count': 1,
                     'indices': [test_index]
                 }
-        
+
         # Convert back to original format
         updated_clusters = {
             cluster_id: {
@@ -803,7 +805,7 @@ def q6_processing(df):
             }
             for cluster_id, data in train_cluster_words.items()
         }
-        
+
         return updated_clusters
 
     def clusters_to_dataframe(updated_clusters):
@@ -816,17 +818,17 @@ def q6_processing(df):
                 ', '.join(sorted(data['Cluster Words'])),
                 data['Indices']
             ])
-        
+
         cluster_df = pd.DataFrame(
             cluster_data,
             columns=['Cluster Id', 'Count', 'Cluster Words', 'Indices']
         )
-        
+
         # Clean indices
         cluster_df['Indices'] = cluster_df['Indices'].apply(
             lambda x: [int(i) for i in x] if isinstance(x, list) else []
         )
-        
+
         return cluster_df.sort_values('Count', ascending=False)
 
 
@@ -928,11 +930,11 @@ def q6_processing(df):
     for i, row in large_entries.iterrows():
         drink_label = row['drinks']
         index = row['original_index']
-        
+
         # Skip if 'none'
         if drink_label == 'none':
             continue
-            
+
         # Find matching cluster
         for cluster_id in refined_clusters:
             # Check if label matches any word in this cluster
@@ -949,7 +951,7 @@ def q6_processing(df):
         words = list(set(word for word, _ in words_indices))  # Unique words
         indices = [idx for _, idx in words_indices]
         count = len(words_indices)  # Total entries (including duplicates)
-        
+
         cluster_data.append([
             cluster_id,
             count,
@@ -1039,12 +1041,12 @@ def q6_processing(df):
     return df_test_entries
 
 #q5
-# from trainig 
+# from trainig
 # saved clusters based on unique values / added values in them for both and drop the indices
 
 # get the clusters from saved
 # re run clusters for new test data, ensure to saved the indices for test data
-# do fuzzy mathc first: where check if words are subsets of eachother and do a rpeprpocess where u remove the outlier 
+# do fuzzy mathc first: where check if words are subsets of eachother and do a rpeprpocess where u remove the outlier
 #               words like 'i think of' 'this blabla' 'idk'
 # only those with indices in test data will u add as the label back to the og df
 
@@ -1055,60 +1057,60 @@ def q5_processing(df):
 
     # Constants for text processing
     NONE_PHRASES = {
-        'none', 'idk', 'no movie', 'not sure', 'nothing', 
+        'none', 'idk', 'no movie', 'not sure', 'nothing',
         'i dont', 'i cant', 'na', 'no', "i don't know"
     }
 
     FILLER_PHRASES = [
-        'i think of', 'comes to mind', 'i thought of', 
+        'i think of', 'comes to mind', 'i thought of',
         'when thinking of', 'to be honest', 'i might think of',
-        'probably some', 'nothing comes to mind', 'think about the movie', 'think about', 
+        'probably some', 'nothing comes to mind', 'think about the movie', 'think about',
         'took place', ''
     ]
 
     def clean_movie_text(text):
         """Enhanced cleaning with optimized phrase removal"""
         text = str(text).lower().strip()
-        
+
         # Quick check for empty/none responses
         if not text or any(phrase in text for phrase in NONE_PHRASES):
             return 'none'
-        
+
         # Remove filler phrases more efficiently
         for phrase in FILLER_PHRASES:
             text = text.replace(phrase, '')
-        
+
         # Advanced cleaning with single regex pass
         text = re.sub(r'[^a-zA-Z0-9\s]|\b\w{1,2}\b', '', text)  # Remove short words
         text = re.sub(r'\s+', ' ', text).strip()
-        
+
         return text if text else 'none'
 
     def divide_movie_responses(df, text_col='Q5: What movie do you think of when thinking of this food item?', threshold=7):
         """Split responses into DataFrames for short and long responses"""
         # Create a working copy with just the columns we need
         q5 = df[['id', text_col]].copy()
-        
+
         # Clean the text and calculate word counts
         q5['cleaned'] = q5[text_col].apply(clean_movie_text)
         q5['word_count'] = q5['cleaned'].str.split().str.len()
-        
+
         # Split based on threshold
         mask = q5['word_count'] < threshold
         short = q5[mask].copy()
         long = q5[~mask].copy()
-        
+
         # Prepare DataFrames with consistent column names
         short_df = pd.DataFrame({
             'movies': short['cleaned'],
             'original_index': short['id']
         }).reset_index(drop=True)
-        
+
         long_df = pd.DataFrame({
             'movies': long['cleaned'],
             'original_index': long['id']
         }).reset_index(drop=True)
-        
+
         return short_df, long_df
 
 
@@ -1117,12 +1119,12 @@ def q5_processing(df):
     def load_training_clusters(cluster_path):
         """Optimized cluster loading with error handling"""
         df = pd.read_csv(cluster_path)
-        
+
         # Convert indices safely
         df['Indices'] = df['Indices'].apply(
             lambda x: literal_eval(x) if isinstance(x, str) and x.startswith('[') else []
         )
-        
+
         # Handle float/NaN values in Cluster Words
         def safe_split(words):
             if pd.isna(words):
@@ -1130,7 +1132,7 @@ def q5_processing(df):
             if isinstance(words, float):
                 return set()
             return set(str(words).split(', '))
-        
+
         clusters = {}
         for _, row in df.iterrows():
             clusters[row['Cluster Id']] = {
@@ -1144,13 +1146,13 @@ def q5_processing(df):
         """Safe fuzzy matching that always returns a numeric score"""
         s1 = clean_movie_text(s1) if s1 else ''
         s2 = clean_movie_text(s2) if s2 else ''
-        
+
         if not s1 or not s2:
             return 0
-        
+
         if s1 in s2 or s2 in s1:
             return 100
-        
+
         try:
             common_chars = sum((c in s2) for c in s1)
             return int((2 * common_chars / (len(s1) + len(s2))) * 100)
@@ -1161,7 +1163,7 @@ def q5_processing(df):
         """Optimized cluster processing with safe scoring"""
         test_data = test_entries[['movies', 'original_index']].copy()
         test_data['clean_movie'] = test_data['movies'].apply(clean_movie_text)
-        
+
         # Precompute cluster word lists for faster access
         cluster_info = {
             cid: {
@@ -1171,16 +1173,16 @@ def q5_processing(df):
             }
             for cid, data in train_clusters.items()
         }
-        
+
         updated = train_clusters.copy()
-        
+
         for _, row in test_data.iterrows():
             text, idx = row['clean_movie'], row['original_index']
             if text == 'none':
                 continue
-                
+
             best_match, best_score = None, 0
-            
+
             # Optimized comparison loop
             for cid, cinfo in cluster_info.items():
                 for word in cinfo['words']:
@@ -1188,18 +1190,18 @@ def q5_processing(df):
                     if text == word:
                         best_match, best_score = cid, 1.0
                         break
-                        
+
                     # Safe similarity calculations
                     js = jaro_winkler_similarity(text, word) or 0.0
                     fs = (simple_fuzzy_match(text, word) or 0)/100
                     score = 0.7*js + 0.3*fs
-                    
+
                     if score > best_score:
                         best_score, best_match = score, cid
-                
+
                 if best_score == 1.0:  # Early exit
                     break
-            
+
             # Apply matching logic
             if best_score >= 0.85 and best_match:
                 updated[best_match]['Count'] += 1
@@ -1211,19 +1213,19 @@ def q5_processing(df):
                     'Cluster Words': {text},
                     'Indices': [idx]
                 })
-        
+
         return updated
 
 
     def process_long_entries(long_entries, clusters):
         """Handle long entries with simplified matching"""
         long_entries['clean_movie'] = long_entries['movies'].apply(clean_movie_text)
-        
+
         for _, row in long_entries.iterrows():
             text, idx = row['clean_movie'], row['original_index']
             if text == 'none':
                 continue
-                
+
             matched = False
             for cid in clusters:
                 if text in clusters[cid]['Cluster Words']:
@@ -1231,14 +1233,14 @@ def q5_processing(df):
                     clusters[cid]['Indices'].append(idx)
                     matched = True
                     break
-                    
+
             if not matched:
                 clusters[text] = {
                     'Count': 1,
                     'Cluster Words': {text},
                     'Indices': [idx]
                 }
-        
+
         return clusters
 
     def save_clusters(clusters):
@@ -1251,7 +1253,7 @@ def q5_processing(df):
                 'Cluster Words': ', '.join(sorted(data['Cluster Words'])),
                 'Indices': data['Indices']
             })
-        
+
         df = pd.DataFrame(records)
         df['Indices'] = df['Indices'].apply(lambda x: str(x))
         df.sort_values('Count', ascending=False, inplace=True)
@@ -1304,7 +1306,7 @@ def q5_processing(df):
     model_df = model_df.fillna('none')
     return model_df
 
-def preprocess_data(df):    
+def preprocess_data(df):
     df = q2_processing(df)
     df = q4_processing(df)
     df = q6_processing(df)
