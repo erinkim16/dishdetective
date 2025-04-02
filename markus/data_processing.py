@@ -1073,7 +1073,7 @@ def q5_processing(df):
         text = str(text).lower().strip()
 
         # Quick check for empty/none responses
-        if not text or any(phrase in text for phrase in NONE_PHRASES):
+        if not text:
             return 'none'
 
         # Remove filler phrases more efficiently
